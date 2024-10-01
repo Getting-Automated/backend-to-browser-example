@@ -1,0 +1,137 @@
+/* Basic styling for the body */
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Styles for the main heading */
+h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+/* Styles for forms */
+form {
+    width: 100%;
+}
+
+/* Styles for labels */
+label {
+    display: block;
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+/* Styles for input fields and select */
+input[type="date"],
+select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+/* Styles for the date input calendar icon */
+input[type="date"]::-webkit-calendar-picker-indicator {
+    float: right;
+    padding: 8px;
+}
+
+/* Styles for buttons */
+button {
+    margin-top: 15px;
+    padding: 10px 20px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #e0e0e0;
+}
+
+/* Styles for the availability time slots */
+#availability {
+    margin-top: 20px;
+}
+
+/* Styles for individual time slots */
+.time-slot {
+    display: inline-block;
+    padding: 10px 15px;
+    margin: 5px;
+    border: 1px solid #007BFF;
+    border-radius: 5px;
+    color: #007BFF;
+    cursor: pointer;
+}
+
+/* Hover effect for time slots */
+.time-slot:hover {
+    background-color: #007BFF;
+    color: #fff;
+}
+
+/* Styles for the response message */
+#response {
+    font-size: 1.2em;
+    margin-top: 20px;
+}
+
+/* Tooltip container */
+.tooltip {
+    position: relative;
+    display: inline-block;
+    margin-left: 5px;
+}
+
+/* Tooltip icon */
+.tooltip i {
+    color: #007bff;
+    cursor: pointer;
+}
+
+/* Tooltip text */
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 200px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -100px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+/* Tooltip arrow */
+.tooltip .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
+
+/* Show tooltip on hover */
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}

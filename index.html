@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Check Appointment Availability</title>
+  <!-- Link to the external CSS file for styling -->
+  <link rel="stylesheet" href="styles.css">
+  <!-- Add Font Awesome for the info icon -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+  <!-- Main heading of the page -->
+  <h1>Check Appointment Availability</h1>
+
+  <!-- Form to request available appointment times -->
+  <form id="availability-form">
+    <!-- Input field for the preferred appointment date -->
+    <label for="date">
+      Preferred Date:
+      <span class="tooltip">
+        <i class="fas fa-info-circle"></i>
+        <span class="tooltiptext">Availability is shown for business hours only (9 AM - 5 PM)</span>
+      </span>
+    </label>
+    <input type="date" id="date" required />
+
+    <!-- Dropdown selector for the preferred appointment duration -->
+    <label for="duration">Duration:</label>
+    <select id="duration" required>
+      <option value="15">15 minutes</option>
+      <option value="30">30 minutes</option>
+      <option value="45">45 minutes</option>
+      <option value="60">1 hour</option>
+      <option value="75">1 hour 15 minutes</option>
+      <option value="90">1 hour 30 minutes</option>
+      <option value="105">1 hour 45 minutes</option>
+      <option value="120">2 hours</option>
+    </select>
+
+    <!-- Add timezone dropdown -->
+    <label for="timezone">Timezone:</label>
+    <select id="timezone" required>
+      <option value="America/New_York">Eastern Time (ET)</option>
+      <option value="America/Chicago">Central Time (CT)</option>
+      <option value="America/Denver">Mountain Time (MT)</option>
+      <option value="America/Los_Angeles">Pacific Time (PT)</option>
+      <option value="America/Anchorage">Alaska Time (AKT)</option>
+      <option value="Pacific/Honolulu">Hawaii-Aleutian Time (HAT)</option>
+    </select>
+
+    <!-- Submit button to send the availability request -->
+    <button type="submit">Check Availability</button>
+  </form>
+
+  <!-- Div element to display available time slots -->
+  <div id="availability"></div>
+
+  <!-- Form to book the selected appointment time -->
+  <form id="booking-form" style="display: none;">
+    <!-- Hidden inputs to store selected date and time -->
+    <input type="hidden" id="selected-date" />
+    <input type="hidden" id="selected-time" />
+
+    <!-- Input field for the user's name -->
+    <label for="name">Name:</label>
+    <input type="text" id="name" required />
+
+    <!-- Input field for the user's email address -->
+    <label for="email">Email:</label>
+    <input type="email" id="email" required />
+
+    <!-- Display the selected appointment time -->
+    <p id="selected-slot"></p>
+
+    <!-- Submit button to confirm the booking -->
+    <button type="submit">Confirm Appointment</button>
+  </form>
+
+  <!-- Div element to display response messages to the user -->
+  <div id="response"></div>
+
+  <!-- Link to the external JavaScript file for form handling -->
+  <script src="app.js"></script>
+</body>
+</html>
