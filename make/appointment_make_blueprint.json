@@ -1,0 +1,289 @@
+{
+    "name": "Example - Backend to Browser",
+    "flow": [
+        {
+            "id": 1,
+            "module": "gateway:CustomWebHook",
+            "version": 1,
+            "parameters": {
+                "hook": 1800977,
+                "maxResults": 1
+            },
+            "mapper": {},
+            "metadata": {
+                "designer": {
+                    "x": -119,
+                    "y": 0,
+                    "name": "Webhook (HTTP GET Request)"
+                },
+                "restore": {
+                    "parameters": {
+                        "hook": {
+                            "data": {
+                                "editable": "true"
+                            },
+                            "label": "Backend to Browser Webhook"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "hook",
+                        "type": "hook:gateway-webhook",
+                        "label": "Webhook",
+                        "required": true
+                    },
+                    {
+                        "name": "maxResults",
+                        "type": "number",
+                        "label": "Maximum number of results"
+                    }
+                ]
+            }
+        },
+        {
+            "id": 2,
+            "module": "google-calendar:getFreeBusyInformation",
+            "version": 5,
+            "parameters": {
+                "__IMTCONN__": 3529497
+            },
+            "mapper": {
+                "item": [
+                    {
+                        "id": "hello@huntersneed.com"
+                    }
+                ],
+                "timeMax": "{{1.timeMax}}",
+                "timeMin": "{{1.timeMin}}"
+            },
+            "metadata": {
+                "designer": {
+                    "x": 259,
+                    "y": -1,
+                    "name": "Check Google Calendar Availability"
+                },
+                "restore": {
+                    "expect": {
+                        "item": {
+                            "mode": "chose",
+                            "items": [
+                                {
+                                    "id": {
+                                        "mode": "chose",
+                                        "label": "Personal (Primary Calendar)"
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "parameters": {
+                        "__IMTCONN__": {
+                            "data": {
+                                "scoped": "true",
+                                "connection": "google"
+                            },
+                            "label": "Hunter's Calendar (Hello@huntersneed.com)"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "__IMTCONN__",
+                        "type": "account:google",
+                        "label": "Connection",
+                        "required": true
+                    }
+                ],
+                "expect": [
+                    {
+                        "name": "timeMin",
+                        "time": true,
+                        "type": "date",
+                        "label": "Minimum Time",
+                        "required": true
+                    },
+                    {
+                        "name": "timeMax",
+                        "time": true,
+                        "type": "date",
+                        "label": "Maximum Time",
+                        "required": true
+                    },
+                    {
+                        "name": "item",
+                        "spec": [
+                            {
+                                "mode": "edit",
+                                "name": "id",
+                                "type": "select",
+                                "label": "Calendar ID",
+                                "dynamic": true,
+                                "options": [],
+                                "required": true
+                            }
+                        ],
+                        "type": "array",
+                        "label": "Calendars",
+                        "required": true
+                    }
+                ],
+                "interface": [
+                    {
+                        "name": "kind",
+                        "type": "text",
+                        "label": "Kind"
+                    },
+                    {
+                        "name": "timeMin",
+                        "type": "date",
+                        "label": "Time Min"
+                    },
+                    {
+                        "name": "timeMax",
+                        "type": "date",
+                        "label": "Time Max"
+                    },
+                    {
+                        "name": "calendars",
+                        "spec": [
+                            {
+                                "name": "hello@huntersneed.com",
+                                "spec": [
+                                    {
+                                        "name": "busy",
+                                        "spec": [
+                                            {
+                                                "name": "start",
+                                                "type": "date",
+                                                "label": "Start"
+                                            },
+                                            {
+                                                "name": "end",
+                                                "type": "date",
+                                                "label": "End"
+                                            }
+                                        ],
+                                        "type": "array",
+                                        "label": "Busy"
+                                    },
+                                    {
+                                        "name": "errors",
+                                        "spec": [
+                                            {
+                                                "name": "domain",
+                                                "type": "date",
+                                                "label": "Domain"
+                                            },
+                                            {
+                                                "name": "reason",
+                                                "type": "date",
+                                                "label": "Reason"
+                                            }
+                                        ],
+                                        "type": "array",
+                                        "label": "Errors"
+                                    }
+                                ],
+                                "type": "collection",
+                                "label": "hello@huntersneed.com"
+                            }
+                        ],
+                        "type": "collection",
+                        "label": "Calendars"
+                    }
+                ]
+            }
+        },
+        {
+            "id": 3,
+            "module": "gateway:WebhookRespond",
+            "version": 1,
+            "parameters": {},
+            "mapper": {
+                "body": "{{2.calendars}}",
+                "status": "200",
+                "headers": []
+            },
+            "metadata": {
+                "designer": {
+                    "x": 620,
+                    "y": 0,
+                    "name": "Return JSON to Frontend"
+                },
+                "restore": {
+                    "expect": {
+                        "headers": {
+                            "mode": "chose"
+                        }
+                    }
+                },
+                "expect": [
+                    {
+                        "name": "status",
+                        "type": "uinteger",
+                        "label": "Status",
+                        "required": true,
+                        "validate": {
+                            "min": 100
+                        }
+                    },
+                    {
+                        "name": "body",
+                        "type": "any",
+                        "label": "Body"
+                    },
+                    {
+                        "name": "headers",
+                        "spec": [
+                            {
+                                "name": "key",
+                                "type": "text",
+                                "label": "Key",
+                                "required": true,
+                                "validate": {
+                                    "max": 256
+                                }
+                            },
+                            {
+                                "name": "value",
+                                "type": "text",
+                                "label": "Value",
+                                "required": true,
+                                "validate": {
+                                    "max": 4096
+                                }
+                            }
+                        ],
+                        "type": "array",
+                        "label": "Custom headers",
+                        "validate": {
+                            "maxItems": 16
+                        }
+                    }
+                ],
+                "advanced": true
+            }
+        }
+    ],
+    "metadata": {
+        "instant": true,
+        "version": 1,
+        "scenario": {
+            "roundtrips": 1,
+            "maxErrors": 3,
+            "autoCommit": true,
+            "autoCommitTriggerLast": true,
+            "sequential": false,
+            "slots": null,
+            "confidential": false,
+            "dataloss": false,
+            "dlq": false,
+            "freshVariables": false
+        },
+        "designer": {
+            "orphans": []
+        },
+        "zone": "us1.make.com"
+    }
+}

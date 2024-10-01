@@ -3,6 +3,8 @@
 ## Overview
 This project demonstrates how to integrate a web frontend with Make.com (formerly Integromat) using webhooks and JSON. It showcases a simple appointment booking system that interacts with Make.com scenarios to check calendar availability and potentially book appointments.
 
+![Make.com Scenario Screenshot](/img/scenario.png)
+
 ## Purpose
 The primary goal of this demo is to illustrate:
 1. How to send data from a web frontend to a Make.com webhook
