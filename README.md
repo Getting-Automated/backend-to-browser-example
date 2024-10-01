@@ -19,10 +19,6 @@ graph TD
     E --> F[Frontend displays available slots]
     F --> G[User selects a slot]
     G --> H[Frontend displays booking form]
-    H --> I[User submits booking]
-    I --> J[Frontend sends POST request to Make.com]
-    J --> K[Make.com processes booking]
-    K --> L[Booking confirmed]
 ```
 
 ## Features
