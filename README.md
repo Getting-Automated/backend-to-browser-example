@@ -12,15 +12,25 @@ The primary goal of this demo is to illustrate:
 3. Real-world application of Make.com in a booking system scenario
 
 ## Flow Diagram
+
 ```mermaid
-graph TD
-    A[User selects date, duration, timezone] --> B[Frontend sends GET request to Make.com webhook]
-    B --> C[Make.com processes request]
-    C --> D[Make.com returns busy times]
-    D --> E[Frontend calculates available slots]
-    E --> F[Frontend displays available slots]
-    F --> G[User selects a slot]
-    G --> H[Frontend displays booking form]
+sequenceDiagram
+    participant User
+    participant Frontend
+    participant Make.com
+    participant Calendar
+
+    User->>Frontend: Selects date, duration, timezone
+    Frontend->>Make.com: Sends GET request with parameters
+    Note over Frontend,Make.com: date, duration, timeZone
+    Make.com->>Calendar: Queries for busy times
+    Calendar-->>Make.com: Returns busy times
+    Make.com-->>Frontend: Sends JSON response
+    Note over Make.com,Frontend: {"email@example.com": {"busy": [{"start": "2024-10-10T13:30:00.000Z", "end": "2024-10-10T14:15:00.000Z"}]}}
+    Frontend->>Frontend: Calculates available slots
+    Frontend-->>User: Displays available time slots
+    User->>Frontend: Selects a time slot
+    Frontend-->>User: Displays booking form
 ```
 
 ## Features
